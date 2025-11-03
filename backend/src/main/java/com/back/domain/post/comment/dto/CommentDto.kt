@@ -14,12 +14,12 @@ data class CommentDto(
     val postId: Long?
 ) {
     constructor(comment: Comment) : this(
-        comment.getId(),
-        comment.getCreateDate(),
-        comment.getModifyDate(),
-        comment.getContent(),
-        comment.getAuthor().getId(),
-        comment.getAuthor().getName(),
-        comment.getPost().getId()
+        comment.id,
+        comment.createDate,
+        comment.modifyDate,
+        comment.content,
+        comment.author.id,
+        comment.author.name,
+        comment.post.id
     )
 }
