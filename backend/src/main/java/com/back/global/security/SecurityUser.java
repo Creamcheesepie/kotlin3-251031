@@ -8,8 +8,15 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import java.util.Collection;
 import java.util.Map;
 
-@Getter
 public class SecurityUser extends User implements OAuth2User {
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
 
     private Long id;
     private String nickname;

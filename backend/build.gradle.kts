@@ -42,6 +42,7 @@ dependencies {
     testImplementation("org.springframework.security:spring-security-test")
 
     //외부 라이브러리
+
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
     runtimeOnly("com.h2database:h2")

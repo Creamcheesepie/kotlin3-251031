@@ -2,12 +2,13 @@ package com.back.global.rsData
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import lombok.AllArgsConstructor
-import lombok.Getter
 
 @AllArgsConstructor
-@Getter
-class RsData<T>(private val resultCode: String, private val msg: String?) {
-    private val data: T? = null
+class RsData<T> @JvmOverloads constructor( // 기본 파라미터를 외부에서 쓰기 위해서는 @JvmOverloads가 필요하다.
+    val resultCode: String,
+    val msg: String?,
+    val data: T? = null
+) {
 
     @get:JsonIgnore
     val statusCode: Int
