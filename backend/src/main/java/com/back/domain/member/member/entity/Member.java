@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
-@Getter
 @Entity
 public class Member extends BaseEntity {
 
@@ -65,6 +64,26 @@ public class Member extends BaseEntity {
     public void update(String nickname, String profileImgUrl) {
         this.nickname = nickname;
         this.profileImgUrl = profileImgUrl;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public String getProfileImgUrl() {
+        return profileImgUrl;
     }
 }
 

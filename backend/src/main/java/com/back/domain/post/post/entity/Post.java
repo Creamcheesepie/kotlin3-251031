@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 @NoArgsConstructor
-@Getter
 @Entity
 public class Post extends BaseEntity {
     private String title;
@@ -71,5 +70,21 @@ public class Post extends BaseEntity {
             throw new ServiceException("403-2", "삭제 권한이 없습니다.");
         }
 
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public Member getAuthor() {
+        return author;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
     }
 }
