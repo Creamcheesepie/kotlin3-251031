@@ -82,7 +82,7 @@ public class AuthTokenServiceTest {
 
         Map<String, Object> payload =  Map.of("name", "Paul", "age", 23);
 
-        String jwt = Ut.jwt.toString(
+        String jwt = Ut.jwt.INSTANCE.toString(
                 secretPattern,
                 expireSeconds,
                 payload

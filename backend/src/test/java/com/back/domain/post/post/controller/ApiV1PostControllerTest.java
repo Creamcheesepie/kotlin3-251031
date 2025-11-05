@@ -283,7 +283,7 @@ public class ApiV1PostControllerTest {
         String content = "내용입니다";
         Member author = memberRepository.findByUsername("user1").get();
 
-        String accessToken = Ut.jwt.toString(
+        String accessToken = Ut.jwt.INSTANCE.toString(
                 secretPattern,
                 expireSeconds,
                 Map.of(
