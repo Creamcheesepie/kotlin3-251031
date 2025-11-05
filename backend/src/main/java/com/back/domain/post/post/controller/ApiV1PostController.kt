@@ -11,12 +11,10 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
-import lombok.RequiredArgsConstructor
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/v1/posts")
 @Tag(name = "ApiV1PostController", description = "글 API")
 @SecurityRequirement(name = "bearerAuth")
@@ -67,13 +65,11 @@ class ApiV1PostController(
     }
 
 
-    @JvmRecord
     data class PostWriteReqBody(
         @field:NotBlank @field:Size(min = 2, max = 10) val title: String,
         @field:NotBlank @field:Size(min = 2, max = 100) val content: String
     )
 
-    @JvmRecord
     data class PostWriteResBody(
         val postDto: PostDto
     )
@@ -97,11 +93,10 @@ class ApiV1PostController(
     }
 
 
-    @JvmRecord
     data class PostModifyReqBody(
-        val title: @NotBlank @Size(min = 2, max = 10) String,
+        @field:NotBlank @field:Size(min = 2, max = 10) val title: String,
 
-        val content: @NotBlank @Size(min = 2, max = 100) String
+        @field:NotBlank @field:Size(min = 2, max = 100) val content: String
     )
 
     @PutMapping("/{id}")

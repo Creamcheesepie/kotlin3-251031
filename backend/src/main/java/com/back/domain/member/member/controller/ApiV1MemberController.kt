@@ -9,12 +9,10 @@ import com.back.global.rsData.RsData
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
-import lombok.RequiredArgsConstructor
 import org.springframework.web.bind.annotation.*
 import java.util.function.Supplier
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/v1/members")
 class ApiV1MemberController(
     private val memberService: MemberService,

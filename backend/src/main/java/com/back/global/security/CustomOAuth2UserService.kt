@@ -1,7 +1,6 @@
 package com.back.global.security
 
 import com.back.domain.member.member.service.MemberService
-import lombok.RequiredArgsConstructor
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
 import org.springframework.security.oauth2.core.user.OAuth2User
@@ -10,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
-@RequiredArgsConstructor
 class CustomOAuth2UserService(private val memberService: MemberService) : DefaultOAuth2UserService() {
     @Transactional
     override fun loadUser(

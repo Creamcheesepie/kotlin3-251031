@@ -1,7 +1,6 @@
 package com.back.global.security
 
 import jakarta.servlet.http.HttpServletRequest
-import lombok.RequiredArgsConstructor
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository
 import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter
@@ -12,7 +11,6 @@ import java.nio.charset.StandardCharsets
 import java.util.*
 
 @Component
-@RequiredArgsConstructor
 class CustomOAuth2AuthorizationRequestResolver(
     private val clientRegistrationRepository: ClientRegistrationRepository
 ) : OAuth2AuthorizationRequestResolver {

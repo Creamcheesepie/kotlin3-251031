@@ -5,10 +5,8 @@ import com.back.domain.post.comment.entity.Comment
 import com.back.global.exception.ServiceException
 import com.back.global.jpa.entity.BaseEntity
 import jakarta.persistence.*
-import lombok.NoArgsConstructor
 import java.util.*
 
-@NoArgsConstructor
 @Entity
 class Post(
     id: Long = 0,

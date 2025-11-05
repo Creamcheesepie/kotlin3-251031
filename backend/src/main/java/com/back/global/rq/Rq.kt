@@ -6,12 +6,10 @@ import com.back.global.security.SecurityUser
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import lombok.RequiredArgsConstructor
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 
 @Component
-@RequiredArgsConstructor
 class Rq(
     private val request: HttpServletRequest,
     private val response: HttpServletResponse

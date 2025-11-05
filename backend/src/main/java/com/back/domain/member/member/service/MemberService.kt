@@ -3,14 +3,12 @@ package com.back.domain.member.member.service
 import com.back.domain.member.member.entity.Member
 import com.back.domain.member.member.repository.MemberRepository
 import com.back.global.exception.ServiceException
-import lombok.RequiredArgsConstructor
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.*
 import java.util.function.Consumer
 
 @Service
-@RequiredArgsConstructor
 class MemberService(
     private val memberRepository: MemberRepository,
     private val authTokenService: AuthTokenService,
