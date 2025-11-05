@@ -13,7 +13,6 @@ import jakarta.persistence.ManyToOne
 class Comment(
     @field:ManyToOne(fetch = FetchType.LAZY)
     val author: Member,
-    @JvmField
     var content: String?,
     @field:JsonIgnore
     @field:ManyToOne(fetch = FetchType.LAZY)

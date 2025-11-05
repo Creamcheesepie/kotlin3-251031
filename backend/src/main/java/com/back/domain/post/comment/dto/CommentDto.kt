@@ -3,7 +3,6 @@ package com.back.domain.post.comment.dto
 import com.back.domain.post.comment.entity.Comment
 import java.time.LocalDateTime
 
-@JvmRecord
 data class CommentDto(
     val id: Long?,
     val createDate: LocalDateTime?,

@@ -12,13 +12,10 @@ class Post(
     id: Long = 0,
     @field:ManyToOne(fetch = FetchType.LAZY)
     val author: Member,
-    @JvmField
     var title: String?,
-    @JvmField
     var content: String?
 ) : BaseEntity(id) {
 
-    @JvmField
     @OneToMany(
         mappedBy = "post",
         cascade = [CascadeType.PERSIST, CascadeType.REMOVE],

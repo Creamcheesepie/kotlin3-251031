@@ -66,12 +66,10 @@ class ApiV1CommentController(
     }
 
 
-    @JvmRecord
     data class CommentWriteReqBody(
         @field:NotBlank @field:Size(min = 2, max = 100)  val content: String
     )
 
-    @JvmRecord
     data class CommentWriteResBody(
         val commentDto: CommentDto
     )
@@ -99,7 +97,6 @@ class ApiV1CommentController(
     }
 
 
-    @JvmRecord
     internal data class CommentModifyReqBody(
         val content: @NotBlank @Size(min = 2, max = 100) String
     )

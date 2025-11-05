@@ -3,7 +3,6 @@ package com.back.domain.post.post.dto
 import com.back.domain.post.post.entity.Post
 import java.time.LocalDateTime
 
-@JvmRecord
 data class PostDto(
     val id: Long?,
     val createDate: LocalDateTime?,

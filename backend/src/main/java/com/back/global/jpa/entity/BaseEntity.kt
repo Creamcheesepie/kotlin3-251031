@@ -10,7 +10,6 @@ import java.util.*
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
 abstract class BaseEntity(
-    @JvmField
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0

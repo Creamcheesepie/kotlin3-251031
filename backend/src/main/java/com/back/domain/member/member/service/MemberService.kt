@@ -20,7 +20,6 @@ class MemberService(
         return memberRepository.count()
     }
 
-    @JvmOverloads
     fun join(username: String, password: String?, nickname: String, profileImgUrl: String? = null): Member {
         memberRepository.findByUsername(username)
             .ifPresent(Consumer { m: Member? ->
