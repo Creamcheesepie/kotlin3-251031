@@ -34,11 +34,11 @@ class CustomOAuth2UserService(private val memberService: MemberService) : Defaul
         val member = memberService!!.modifyOrJoin(username, password, nickname, profileImgUrl)
 
         return SecurityUser(
-            member.getId(),
-            member.getUsername(),
-            member.getPassword(),
-            member.getNickname(),
-            member.getAuthorities()
+            member.id,
+            member.username,
+            member.password,
+            member.nickname,
+            member.authorities
         )
     }
 }

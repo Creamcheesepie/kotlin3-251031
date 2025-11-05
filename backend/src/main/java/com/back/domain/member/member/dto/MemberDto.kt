@@ -15,7 +15,7 @@ data class MemberDto(
         member.id,
         member.createDate,
         member.modifyDate,
-        member.name,
+        member.nickname,
         member.isAdmin
     )
 }

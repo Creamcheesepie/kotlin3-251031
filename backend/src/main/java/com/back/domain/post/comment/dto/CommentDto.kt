@@ -19,7 +19,7 @@ data class CommentDto(
         comment.modifyDate,
         comment.content,
         comment.author.id,
-        comment.author.name,
-        comment.post.id
+        comment.author.nickname,
+        comment.post?.id
     )
 }

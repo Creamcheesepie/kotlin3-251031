@@ -25,7 +25,7 @@ class CustomOAuth2LoginSuccessHandler(
     ) {
         val member = rq.actor
         val accessToken = memberService.genAccessToken(member)
-        val apiKey = member?.getApiKey()
+        val apiKey = member?.apiKey
 
         rq.setCookie("accessToken", accessToken)
         rq.setCookie("apiKey", apiKey)

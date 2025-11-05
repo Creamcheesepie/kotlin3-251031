@@ -125,8 +125,8 @@ public class ApiV1CommentControllerTest {
                 .andExpect(jsonPath("$.data.commentDto.createDate").exists())
                 .andExpect(jsonPath("$.data.commentDto.modifyDate").exists())
                 .andExpect(jsonPath("$.data.commentDto.content").value(content))
-                .andExpect(jsonPath("$.data.commentDto.authorId").value(author.getId()))
-                .andExpect(jsonPath("$.data.commentDto.authorName").value(author.getName()));
+                .andExpect(jsonPath("$.data.commentDto.authorId").value(author.id))
+                .andExpect(jsonPath("$.data.commentDto.authorName").value(author.getNickname()));
     }
 
     @Test
@@ -161,7 +161,7 @@ public class ApiV1CommentControllerTest {
         Post post = postRepository.findById(targetPostId).get();
         Comment comment = post.findCommentById(targetCommentId).get();
 
-        assertThat(comment.getContent()).isEqualTo(content);
+        assertThat(comment.content).isEqualTo(content);
     }
 
     @Test

@@ -20,6 +20,6 @@ data class PostDto(
         post.title,
         post.content,
         post.author.id,
-        post.author.name,
+        post.author.nickname,
     )
 }

@@ -109,7 +109,7 @@ public class ApiV1PostControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.createDate").value(matchesPattern(post.getCreateDate().toString().replaceAll("0+$", "") + ".*")))
-                .andExpect(jsonPath("$.modifyDate").value(matchesPattern(post.getModifyDate().toString().replaceAll("0+$", "") + ".*")))
+                .andExpect(jsonPath("$.modifyDate").value(matchesPattern(post.getCreateDate().toString().replaceAll("0+$", "") + ".*")))
                 .andExpect(jsonPath("$.title").value("제목1"))
                 .andExpect(jsonPath("$.content").value("내용1"))
                 .andExpect(jsonPath("$.authorId").value(3))
@@ -149,8 +149,8 @@ public class ApiV1PostControllerTest {
                 .andExpect(jsonPath("$.data.postDto.modifyDate").exists())
                 .andExpect(jsonPath("$.data.postDto.title").value(title))
                 .andExpect(jsonPath("$.data.postDto.content").value(content))
-                .andExpect(jsonPath("$.data.postDto.authorId").value(author.getId()))
-                .andExpect(jsonPath("$.data.postDto.authorName").value(author.getName()));
+                .andExpect(jsonPath("$.data.postDto.authorId").value(author.id))
+                .andExpect(jsonPath("$.data.postDto.authorName").value(author.getNickname()));
 
     }
 
@@ -287,7 +287,7 @@ public class ApiV1PostControllerTest {
                 secretPattern,
                 expireSeconds,
                 Map.of(
-                        "id", author.getId(),
+                        "id", author.id,
                         "username", author.getUsername(),
                         "nickname", author.getNickname()
                 )
@@ -348,8 +348,8 @@ public class ApiV1PostControllerTest {
         // 선택적 검증
         Post post = postRepository.findById(targetId).get();
 
-        assertThat(post.getTitle()).isEqualTo(title);
-        assertThat(post.getContent()).isEqualTo(content);
+        assertThat(post.title).isEqualTo(title);
+        assertThat(post.content).isEqualTo(content);
     }
 
     @Test

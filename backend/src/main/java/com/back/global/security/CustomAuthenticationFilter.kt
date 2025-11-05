@@ -102,8 +102,8 @@ class CustomAuthenticationFilter(
 
             if (payload != null) {
                 val id = payload.get("id") as Long
-                val username = payload.get("username") as String?
-                val nickname = payload.get("nickname") as String?
+                val username = payload.get("username") as String
+                val nickname = payload.get("nickname") as String
 
                 member = Member(id, username, nickname)
                 isAccessTokenValid = true
@@ -123,11 +123,11 @@ class CustomAuthenticationFilter(
         }
 
         val user: UserDetails = SecurityUser(
-            member!!.getId(),
-            member!!.getUsername(),
+            member!!.id,
+            member!!.username,
             "",
-            member!!.getNickname(),
-            member!!.getAuthorities()
+            member!!.nickname,
+            member!!.authorities
         )
 
         val authentication: Authentication = UsernamePasswordAuthenticationToken(

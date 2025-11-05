@@ -1,6 +1,5 @@
 package com.back.domain.member.member.service;
 
-import com.back.domain.member.member.service.AuthTokenService;
 import com.back.domain.member.member.entity.Member;
 import com.back.domain.member.member.repository.MemberRepository;
 import com.back.standard.ut.Ut;
@@ -114,7 +113,7 @@ public class AuthTokenServiceTest {
 
         assertThat(payload).containsAllEntriesOf(
                 Map.of(
-                        "id", member1.getId(),
+                        "id", member1.id,
                         "username", member1.getUsername()
                 )
         );
