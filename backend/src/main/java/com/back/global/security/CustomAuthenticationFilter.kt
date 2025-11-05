@@ -37,7 +37,7 @@ class CustomAuthenticationFilter(
         try {
             authenticate(request, response, filterChain)
         } catch (e: ServiceException) {
-            val rsData = e.getRsData()
+            val rsData = e.rsData
             response.setContentType("application/json")
             response.setStatus(rsData.statusCode)
             response.getWriter().write(
