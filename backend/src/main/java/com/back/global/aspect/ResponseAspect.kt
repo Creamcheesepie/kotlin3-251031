@@ -1,21 +1,21 @@
-package com.back.global.aspect;
+package com.back.global.aspect
 
-import com.back.global.rsData.RsData;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.springframework.stereotype.Component;
+import com.back.global.rsData.RsData
+import jakarta.servlet.http.HttpServletResponse
+import org.aspectj.lang.ProceedingJoinPoint
+import org.aspectj.lang.annotation.Around
+import org.aspectj.lang.annotation.Aspect
+import org.springframework.stereotype.Component
 
 @Aspect
 @Component
-@RequiredArgsConstructor
-public class ResponseAspect {
+class ResponseAspect (
+    private val response: HttpServletResponse
+){
 
-    private final HttpServletResponse response;
 
-    @Around("""
+    @Around(
+        """
             (
                 within
                 (
@@ -34,16 +34,16 @@ public class ResponseAspect {
             )
             ||
             @annotation(org.springframework.web.bind.annotation.ResponseBody)
-            """)
-    public Object responseAspect(ProceedingJoinPoint joinPoint) throws Throwable {
+            """
+    )
+    @Throws(Throwable::class)
+    fun responseAspect(joinPoint: ProceedingJoinPoint): Any? {
+        val rst = joinPoint.proceed() // 실제 수행 메서드
 
-        Object rst = joinPoint.proceed(); // 실제 수행 메서드
-
-        if(rst instanceof RsData rsData) {
-            response.setStatus(rsData.getStatusCode());
+        if (rst is RsData<*>) {
+            response.setStatus(rst.statusCode)
         }
 
-        return rst;
+        return rst
     }
-
 }

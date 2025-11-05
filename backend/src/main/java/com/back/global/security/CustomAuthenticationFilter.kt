@@ -44,7 +44,7 @@ class CustomAuthenticationFilter(
                 """
                     {
                         "resultCode": "${rsData.resultCode}",
-                        "msg": "${rsData.msg}","
+                        "msg": "${rsData.msg}"
                     }
                     
                     """.trimIndent()
@@ -70,7 +70,7 @@ class CustomAuthenticationFilter(
         val apiKey: String
         val accessToken: String
 
-        val headerAuthorization = rq!!.getHeader("Authorization", "")
+        val headerAuthorization = rq.getHeader("Authorization", "")
 
         if (!headerAuthorization!!.isBlank()) {
             if (!headerAuthorization.startsWith("Bearer ")) throw ServiceException(
@@ -98,7 +98,7 @@ class CustomAuthenticationFilter(
         var member: Member? = null
         var isAccessTokenValid = false
         if (isAccessTokenExists) {
-            val payload = memberService!!.payloadOrNull(accessToken)
+            val payload = memberService.payloadOrNull(accessToken)
 
             if (payload != null) {
                 val id = payload.get("id") as Long
@@ -111,23 +111,23 @@ class CustomAuthenticationFilter(
         }
 
         if (member == null) {
-            member = memberService!!
+            member = memberService
                 .findByApiKey(apiKey)
                 .orElseThrow<ServiceException?>(Supplier { ServiceException("401-3", "API 키가 유효하지 않습니다.") })
         }
 
         if (isAccessTokenExists && !isAccessTokenValid) {
-            val newAccessToken = memberService!!.genAccessToken(member)
+            val newAccessToken = memberService.genAccessToken(member)
             rq.setCookie("accessToken", newAccessToken)
             rq.setHeader("accessToken", newAccessToken)
         }
 
         val user: UserDetails = SecurityUser(
-            member.getId(),
-            member.getUsername(),
+            member!!.getId(),
+            member!!.getUsername(),
             "",
-            member.getNickname(),
-            member.getAuthorities()
+            member!!.getNickname(),
+            member!!.getAuthorities()
         )
 
         val authentication: Authentication = UsernamePasswordAuthenticationToken(
