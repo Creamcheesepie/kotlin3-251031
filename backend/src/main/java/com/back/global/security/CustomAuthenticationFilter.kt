@@ -117,7 +117,7 @@ class CustomAuthenticationFilter(
         }
 
         if (isAccessTokenExists && !isAccessTokenValid) {
-            val newAccessToken = memberService.genAccessToken(member)
+            val newAccessToken = memberService.genAccessToken(member!!)
             rq.setCookie("accessToken", newAccessToken)
             rq.setHeader("accessToken", newAccessToken)
         }

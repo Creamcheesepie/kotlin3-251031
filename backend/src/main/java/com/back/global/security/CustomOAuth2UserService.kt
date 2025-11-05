@@ -27,18 +27,18 @@ class CustomOAuth2UserService(private val memberService: MemberService) : Defaul
         val userNicknameAttributeName = "nickname"
         val profileImgUrlAttributeName = "profile_image"
 
-        val nickname = attributesProperties.get(userNicknameAttributeName) as String?
-        val profileImgUrl = attributesProperties.get(profileImgUrlAttributeName) as String?
+        val nickname = attributesProperties.get(userNicknameAttributeName).toString()
+        val profileImgUrl = attributesProperties.get(profileImgUrlAttributeName).toString()
         val username = providerTypeCode + "__${oauthUserId}"
         val password = ""
-        val member = memberService!!.modifyOrJoin(username, password, nickname, profileImgUrl)
+        val member = memberService.modifyOrJoin(username, password, nickname, profileImgUrl)
 
         return SecurityUser(
             member.id,
             member.username,
             member.password,
             member.nickname,
-            member.authorities
+            member.authorities,
         )
     }
 }

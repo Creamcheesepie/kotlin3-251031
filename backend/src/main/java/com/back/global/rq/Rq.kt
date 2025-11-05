@@ -18,7 +18,7 @@ class Rq(
 ) {
 
 
-    val actor: Member?
+    val actor: Member
         get() = SecurityContextHolder
             .getContext()
             ?.authentication
