@@ -83,11 +83,11 @@ class ApiV1CommentController(
     @Operation(summary = "댓글 작성")
     fun createItem(
         @PathVariable postId: Long,
-        @RequestBody reqBody: @Valid CommentWriteReqBody
+        @RequestBody @Valid reqBody: CommentWriteReqBody
     ): RsData<CommentWriteResBody> {
         val actor = rq.actor
         val post = postService.findById(postId).get()
-        val comment = postService.writeComment(actor, post, reqBody.content!!)
+        val comment = postService.writeComment(actor, post, reqBody.content)
 
         postService.flush()
 
@@ -103,7 +103,7 @@ class ApiV1CommentController(
 
     @JvmRecord
     internal data class CommentModifyReqBody(
-        val content: @NotBlank @Size(min = 2, max = 100) String?
+        val content: @NotBlank @Size(min = 2, max = 100) String
     )
 
     @PutMapping("/{postId}/comments/{commentId}")
@@ -112,15 +112,15 @@ class ApiV1CommentController(
     fun modifyItem(
         @PathVariable postId: Long,
         @PathVariable commentId: Long,
-        @RequestBody reqBody: @Valid CommentWriteReqBody
-    ): RsData<Void?> {
+        @RequestBody @Valid reqBody: CommentWriteReqBody
+    ): RsData<Void> {
         val actor = rq.actor
         val post = postService.findById(postId).get()
         val comment = post.findCommentById(commentId).get()
         comment.checkActorModify(actor)
         postService.modifyComment(post, commentId, reqBody.content)
 
-        return RsData<Void?>(
+        return RsData(
             "200-1",
             ("${commentId}번 댓글이 수정되었습니다.")
         )

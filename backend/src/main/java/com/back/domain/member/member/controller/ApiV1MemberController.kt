@@ -36,7 +36,7 @@ class ApiV1MemberController(
 
     @PostMapping("/join")
     fun join(
-        @RequestBody reqBody: @Valid JoinReqBody
+        @RequestBody @Valid reqBody:  JoinReqBody
     ): RsData<JoinResBody> {
         val member = memberService.join(reqBody.username, reqBody.password, reqBody.nickname)
 
@@ -66,7 +66,7 @@ class ApiV1MemberController(
 
     @PostMapping("/login")
     fun login(
-        @RequestBody reqBody: @Valid LoginReqBody
+        @RequestBody @Valid reqBody: LoginReqBody
     ): RsData<LoginResBody> {
         val member = memberService.findByUsername(reqBody.username).orElseThrow<ServiceException?>(
             Supplier { ServiceException("401-1", "존재하지 않는 아이디입니다.") }
