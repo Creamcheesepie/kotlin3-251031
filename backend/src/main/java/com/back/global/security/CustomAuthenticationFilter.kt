@@ -20,9 +20,11 @@ import java.util.function.Supplier
 
 @Component
 @RequiredArgsConstructor
-class CustomAuthenticationFilter : OncePerRequestFilter() {
-    private val memberService: MemberService? = null
-    private val rq: Rq? = null
+class CustomAuthenticationFilter(
+    private val memberService: MemberService,
+    private val rq: Rq
+) : OncePerRequestFilter() {
+
 
     @Throws(ServletException::class, IOException::class)
     override fun doFilterInternal(
