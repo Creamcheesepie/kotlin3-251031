@@ -5,6 +5,7 @@ import com.back.domain.post.comment.dto.CommentDto
 import com.back.domain.post.post.service.PostService
 import com.back.global.rq.Rq
 import com.back.global.rsData.RsData
+import com.back.standard.extenctions.getOrThrow
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
@@ -28,7 +29,7 @@ class ApiV1CommentController(
     fun getItems(
         @PathVariable postId: Long
     ): MutableList<CommentDto> {
-        val post = postService.findById(postId).get()
+        val post = postService.findById(postId).getOrThrow()
         return post.comments.reversed()
             .map { CommentDto(it) }
             .toMutableList()
@@ -41,7 +42,7 @@ class ApiV1CommentController(
         @PathVariable postId: Long,
         @PathVariable commentId: Long
     ): CommentDto {
-        val post = postService.findById(postId).get()
+        val post = postService.findById(postId).getOrThrow()
         val comment = post.findCommentById(commentId).get()
         return CommentDto(comment)
     }
@@ -54,7 +55,7 @@ class ApiV1CommentController(
         @PathVariable commentId: Long
     ): RsData<Void> {
         val actor = rq.actor
-        val post = postService.findById(postId).get()
+        val post = postService.findById(postId).getOrThrow()
         val comment = post.findCommentById(commentId).get()
         comment.checkActorDelete(actor)
         postService.deleteComment(post, commentId)
@@ -82,7 +83,7 @@ class ApiV1CommentController(
         @RequestBody @Valid reqBody: CommentWriteReqBody
     ): RsData<CommentWriteResBody> {
         val actor = rq.actor
-        val post = postService.findById(postId).get()
+        val post = postService.findById(postId).getOrThrow()
         val comment = postService.writeComment(actor, post, reqBody.content)
 
         postService.flush()
@@ -110,7 +111,7 @@ class ApiV1CommentController(
         @RequestBody @Valid reqBody: CommentWriteReqBody
     ): RsData<Void> {
         val actor = rq.actor
-        val post = postService.findById(postId).get()
+        val post = postService.findById(postId).getOrThrow()
         val comment = post.findCommentById(commentId).get()
         comment.checkActorModify(actor)
         postService.modifyComment(post, commentId, reqBody.content)

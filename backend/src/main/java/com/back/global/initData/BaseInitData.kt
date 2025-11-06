@@ -48,9 +48,9 @@ class BaseInitData(
             return
         }
 
-        val member1 = memberService.findByUsername("user1").get()
-        val member2 = memberService.findByUsername("user2").get()
-        val member3 = memberService.findByUsername("user3").get()
+        val member1 = memberService.findByUsername("user1")?: throw NullPointerException()
+        val member2 = memberService.findByUsername("user2")?: throw NullPointerException()
+        val member3 = memberService.findByUsername("user3")?: throw NullPointerException()
 
         val post1 = postService.write(member1, "제목1", "내용1")
         val post2 = postService.write(member1, "제목2", "내용2")

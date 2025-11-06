@@ -5,8 +5,7 @@ import com.back.domain.member.member.repository.MemberRepository
 import com.back.global.exception.ServiceException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
-import java.util.*
-import java.util.function.Consumer
+import kotlin.jvm.optionals.getOrNull
 
 @Service
 class MemberService(
@@ -21,27 +20,25 @@ class MemberService(
     }
 
     fun join(username: String, password: String?, nickname: String, profileImgUrl: String? = null): Member {
-        memberRepository.findByUsername(username)
-            .ifPresent(Consumer { m: Member? ->
-                throw ServiceException("409-1", "이미 사용중인 아이디입니다.")
-            })
+        memberRepository.findByUsername(username)?.let{
+            throw ServiceException("409-1", "이미 사용중인 아이디입니다.")
+        }
 
         val member = Member(username, passwordEncoder.encode(password), nickname, profileImgUrl)
         return memberRepository.save<Member>(member)
     }
 
     fun modifyOrJoin(username: String, password: String, nickname: String, profileImgUrl: String): Member {
-        val member = memberRepository.findByUsername(username).orElse(null) ?: return  join(username, password, nickname, profileImgUrl)
-
-        member.update(nickname, profileImgUrl)
-        return member
-    }
-
-    fun findByUsername(username: String): Optional<Member> {
         return memberRepository.findByUsername(username)
+            ?.apply { update(nickname,profileImgUrl) }
+            ?: join(username, password, nickname, profileImgUrl)
     }
 
-    fun findByApiKey(apiKey: String): Optional<Member> {
+    fun findByUsername(username: String): Member {
+        return memberRepository.findByUsername(username)?: throw NoSuchElementException()
+    }
+
+    fun findByApiKey(apiKey: String): Member? {
         return memberRepository.findByApiKey(apiKey)
     }
 
@@ -49,12 +46,12 @@ class MemberService(
         return authTokenService.genAccessToken(member)
     }
 
-    fun payloadOrNull(accessToken: String): Map<String, Any>? {
+    fun payload(accessToken: String): Map<String, Any>? {
         return authTokenService.payloadOrNull(accessToken)
     }
 
-    fun findById(id: Long): Optional<Member> {
-        return memberRepository.findById(id)
+    fun findById(id: Long): Member? {
+        return memberRepository.findById(id).getOrNull()
     }
 
     fun findAll(): MutableList<Member> {

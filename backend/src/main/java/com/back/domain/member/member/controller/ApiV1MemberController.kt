@@ -6,11 +6,11 @@ import com.back.domain.member.member.service.MemberService
 import com.back.global.exception.ServiceException
 import com.back.global.rq.Rq
 import com.back.global.rsData.RsData
+import com.back.standard.extenctions.getOrThrow
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
 import org.springframework.web.bind.annotation.*
-import java.util.function.Supplier
 
 @RestController
 @RequestMapping("/api/v1/members")
@@ -62,9 +62,8 @@ class ApiV1MemberController(
     fun login(
         @RequestBody @Valid reqBody: LoginReqBody
     ): RsData<LoginResBody> {
-        val member = memberService.findByUsername(reqBody.username).orElseThrow<ServiceException?>(
-            Supplier { ServiceException("401-1", "존재하지 않는 아이디입니다.") }
-        )
+        val member = memberService.findByUsername(reqBody.username)
+            ?: throw ServiceException("401-1", "존재하지 않는 아이디입니다.")
 
         memberService.checkPassword(reqBody.password, member.password)
         val accessToken = memberService.genAccessToken(member)
@@ -101,7 +100,7 @@ class ApiV1MemberController(
 
     @GetMapping("/me")
     fun me(): RsData<MeResBody> {
-        val author = memberService.findById(rq.actor.id).get()
+        val author = memberService.findById(rq.actor.id).getOrThrow()
 
         return RsData(
             "200-1",

@@ -5,7 +5,7 @@ import com.back.domain.post.comment.entity.Comment
 import com.back.domain.post.post.entity.Post
 import com.back.domain.post.post.repository.PostRepository
 import org.springframework.stereotype.Service
-import java.util.*
+import kotlin.jvm.optionals.getOrNull
 
 @Service
 class PostService(
@@ -22,8 +22,8 @@ class PostService(
     }
 
     // TODO : Optional 처리
-    fun findById(id: Long): Optional<Post> {
-        return postRepository.findById(id)
+    fun findById(id: Long): Post? {
+        return postRepository.findById(id).getOrNull()
     }
 
     fun findAll(): MutableList<Post> {

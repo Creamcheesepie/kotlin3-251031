@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
-import java.util.function.Supplier
 
 @Component
 class CustomAuthenticationFilter(
@@ -96,7 +95,7 @@ class CustomAuthenticationFilter(
         var member: Member? = null
         var isAccessTokenValid = false
         if (isAccessTokenExists) {
-            val payload = memberService.payloadOrNull(accessToken)
+            val payload = memberService.payload(accessToken)
 
             if (payload != null) {
                 val id = payload.get("id") as Long
@@ -111,7 +110,7 @@ class CustomAuthenticationFilter(
         if (member == null) {
             member = memberService
                 .findByApiKey(apiKey)
-                .orElseThrow<ServiceException?>(Supplier { ServiceException("401-3", "API 키가 유효하지 않습니다.") })
+                ?: throw  ServiceException("401-3", "API 키가 유효하지 않습니다.")
         }
 
         if (isAccessTokenExists && !isAccessTokenValid) {

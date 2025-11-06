@@ -32,7 +32,6 @@ object Ut {
             return jwt
         }
 
-        @JvmStatic
         fun isValid(jwt: String, secretPattern: String): Boolean {
             val secretKey = Keys.hmacShaKeyFor(secretPattern.toByteArray(StandardCharsets.UTF_8))
 
@@ -47,7 +46,6 @@ object Ut {
            return true
         }
 
-        @JvmStatic
         fun payloadOrNull(jwt: String, secretPattern: String): MutableMap<String?, Any?>? {
             val secretKey = Keys.hmacShaKeyFor(secretPattern.toByteArray(StandardCharsets.UTF_8))
 
